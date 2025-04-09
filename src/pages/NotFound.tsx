@@ -1,7 +1,15 @@
+import React from "react";
 import { motion } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
+  const navigate = useNavigate(); // React Router's hook for navigation
+
+  const handleGoBack = () => {
+    navigate(-1); // Navigate to the previous page
+  };
+
   return (
     <section className="bg-black text-white min-h-screen flex flex-col items-center justify-center">
       {/* 404 Text */}
@@ -25,17 +33,17 @@ const NotFound = () => {
         Oops! Looks like this page isn’t ready for its big lift just yet. Stay tuned—it’s going to be worth the reps.
       </p>
 
-      {/* Home Button */}
-      <motion.a
-        href="/"
+      {/* Go Back Button */}
+      <motion.button
+        onClick={handleGoBack} // Navigate back to the previous page
         className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full flex items-center transition duration-300"
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         <FaArrowLeft className="mr-2" />
-        Go Back Home
-      </motion.a>
+        Go Back
+      </motion.button>
     </section>
   );
 };
