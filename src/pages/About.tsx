@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import image2 from "../assets/image2.jpg";
+import { Link } from "react-router-dom";
 
 const About: React.FC = () => {
   return (
@@ -113,11 +114,11 @@ const About: React.FC = () => {
             Your story starts here. Join us and take the next step toward
             transformation.
           </p>
-          <a href="/contact">
+          <Link to="/contact">
             <button className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-full font-semibold text-white transition">
               Start Your Journey
             </button>
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
