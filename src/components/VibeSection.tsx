@@ -1,28 +1,31 @@
 import { motion } from "framer-motion";
-import { Dumbbell, Users, Flame, HeartPulse } from "lucide-react"; // uses lucide icons
+import { Dumbbell, Users, Flame, HeartPulse } from "lucide-react"; // Uses lucide icons
 import { useState, useEffect } from "react";
 
 // Custom hook for number count animation
-const useCount = (target: number, duration: number = 2000): number => {
+const useCount = (target: number, shouldStart: boolean, duration: number = 2000): number => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let start = 0;
-    const increment = target / (duration / 50);
-    const interval = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        start = target;
-        clearInterval(interval);
-      }
-      setCount(Math.floor(start));
-    }, 50);
-    return () => clearInterval(interval);
-  }, [target, duration]);
+    if (shouldStart) {
+      let start = 0;
+      const increment = target / (duration / 50);
+      const interval = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+          start = target;
+          clearInterval(interval);
+        }
+        setCount(Math.floor(start));
+      }, 50);
+      return () => clearInterval(interval);
+    }
+  }, [shouldStart, target, duration]);
 
   return count;
 };
 
+// Vibe data
 const vibes = [
   {
     title: "Focused Training",
@@ -55,11 +58,14 @@ const vibes = [
 ];
 
 const VibeSection = () => {
+  // State to control counting
+  const [startCounting, setStartCounting] = useState(false);
+
   // Individual counters for each metric
-  const countFocusedTraining = useCount(vibes[0].targetNumber);
-  const countTightKnitCommunity = useCount(vibes[1].targetNumber);
-  const countSeriousEnergy = useCount(vibes[2].targetNumber);
-  const countRealProgress = useCount(vibes[3].targetNumber);
+  const countFocusedTraining = useCount(vibes[0].targetNumber, startCounting);
+  const countTightKnitCommunity = useCount(vibes[1].targetNumber, startCounting);
+  const countSeriousEnergy = useCount(vibes[2].targetNumber, startCounting);
+  const countRealProgress = useCount(vibes[3].targetNumber, startCounting);
 
   // Bind counters to vibes array
   const vibesWithCounts = [
@@ -75,6 +81,7 @@ const VibeSection = () => {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          onViewportEnter={() => setStartCounting(true)} // Trigger counting when section is in view
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-4xl font-bold text-center mb-16"

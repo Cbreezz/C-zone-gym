@@ -11,36 +11,24 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import emailjs from "emailjs-com";
-import ReCAPTCHA from "react-google-recaptcha"; // For spam prevention
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [captchaVerified, setCaptchaVerified] = useState(false);
 
-  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation for required fields
     if (!formData.name || !formData.email || !formData.message) {
       setErrorMessage("Please fill in all fields.");
       return;
     }
 
-    // CAPTCHA verification
-    if (!captchaVerified) {
-      setErrorMessage("Please verify the CAPTCHA.");
-      return;
-    }
-
-    // EmailJS send logic
     const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const userID = import.meta.env.VITE_EMAILJS_USER_ID;
@@ -61,13 +49,7 @@ const Contact: React.FC = () => {
       console.error("Missing environment variables");
     }
 
-    // Reset form fields
     setFormData({ name: "", email: "", message: "" });
-  };
-
-  // Handle CAPTCHA verification
-  const handleCaptchaVerify = (value: string | null) => {
-    setCaptchaVerified(!!value);
   };
 
   return (
@@ -133,14 +115,6 @@ const Contact: React.FC = () => {
             />
           </div>
 
-          {/* CAPTCHA */}
-          <div className="flex items-center justify-center">
-            <ReCAPTCHA
-              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY} // Use your Site Key from Google reCAPTCHA
-              onChange={handleCaptchaVerify}
-            />
-          </div>
-
           {/* Submit Button */}
           <motion.button
             className="bg-red-600 text-white py-2 px-6 rounded-full hover:bg-red-700 transition duration-300 transform hover:scale-105"
@@ -176,7 +150,20 @@ const Contact: React.FC = () => {
         {/* Location Section */}
         <div className="mt-12 text-center">
           <FaMapMarkerAlt className="text-4xl text-red-600 mb-4" />
-          <p className="text-lg">Visit us at: Buruburu Phase 3, Nairobi, Kenya</p>
+          <p className="text-lg font-semibold">How to Find C-ZONE Gym</p>
+          <p className="text-gray-400">
+            The gym is located behind the <strong>C-ZONE</strong> Shop.
+          </p>
+          <div className="mt-4">
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=-1.289868,36.878783"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition"
+            >
+              Get Directions
+            </a>
+          </div>
         </div>
 
         {/* Google Map */}

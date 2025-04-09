@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import image2 from "../assets/image2.jpg";
 
 const About: React.FC = () => {
   return (
@@ -25,7 +26,7 @@ const About: React.FC = () => {
           className="relative mb-12"
         >
           <LazyLoadImage
-            src="/public/images/image2.jpg"
+            src={image2}
             alt="About C-ZONE Gym"
             effect="blur"
             className="w-full h-auto rounded-lg shadow-lg"

@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Classes from './pages/Classes';
 import Contact from './pages/Contact';
+import NotFound from "./pages/NotFound";
 import ScrollToTop from './components/ScrollToTop'; 
 
 const App: React.FC = () => {
@@ -24,6 +25,7 @@ const App: React.FC = () => {
                         <Route path="/about" element={<About />} />
                         <Route path="/classes" element={<Classes />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="*" element={<NotFound />} />
                         <Route path="/testimonialssection" element={<TestimonialsSection />} />
                         <Route path="/faqsection" element={<FAQSection />} />
                         <Route path="/facilitiessection" element={<FacilitiesSection />} />

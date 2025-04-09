@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaDumbbell, FaAppleAlt, FaHeartbeat } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 
 const PodcastSection: React.FC = () => {
   return (
@@ -76,16 +78,20 @@ const PodcastSection: React.FC = () => {
           </motion.div>
         </div>
 
-        <motion.a
+        {/* Subscribe Button */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          href="#!"
-          className="mt-12 inline-block bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-full text-lg transition transform hover:scale-105"
         >
-          Subscribe for Updates
-        </motion.a>
+          <Link
+            to="/contact"
+            className="inline-block bg-red-600 hover:bg-red-700 text-white py-3 px-8 rounded-full text-sm transition transform hover:scale-105"
+          >
+            Subscribe for more updates
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
